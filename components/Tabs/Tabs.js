@@ -14,24 +14,25 @@ class TabLink {
     this.tabItem =new TabItem(this.itemElement);
     
     // Add a click event listener on this instance, calling the select method on click
-    this.tabItem.addEventListener('click', this.select.bind(this));
+    this.element.addEventListener("click", () => this.select());
     
   };
 
   select() {
-    // Get all of the elements with the tabs-link class
-    const links = document.querySelectorAll('.tab-link');
+    // // Get all of the elements with the tabs-link class
+    const links = document.querySelectorAll('.tabs-link');
 
-    // Using a loop or the forEach method remove the 'tabs-link-selected' class from all of the links
-     Array.from(links).forEach(function(link){
-       link.removeClass('tabs-link-selected')
+    // // Using a loop or the forEach method remove the 'tabs-link-selected' class from all of the links
+    Array.from(links).forEach(function(link){
+     link.classList.remove('tabs-link-selected');
      });
     
-    // Add a class named "tabs-link-selected" to this link
-    links.addClass('tabs-link-selected');
+    // // Add a class named "tabs-link-selected" to this link
+    this.element.classList.toggle('tabs-link-selected');
     
-    // Call the select method on the item associated with this link
-    console.log("I was clicked") //select(items)
+    // // Call the select method on the item associated with this link
+    this.tabItem.select();
+    
   }
 }
 
@@ -46,11 +47,12 @@ class TabItem {
     const items = document.querySelectorAll('.tabs-item');
 
     // Remove the class "tabs-item-selected" from each element
- 
-    item.removeClass('tabs-link-selected');
-    
+    Array.from(items).forEach(function(item){
+      item.classList.remove('tabs-item-selected');
+      });
+   
     // Add a class named "tabs-item-selected" to this element
-    items.addClass('tabs-item-selected');
+    this.element.classList.toggle('tabs-item-selected');
   }
 }
 
@@ -64,8 +66,8 @@ class TabItem {
 
 */
 
-const links = document.querySelectorAll('.tab-link');
+const links = document.querySelectorAll('.tabs-link');
 
 links.forEach(function(link){
-  return new link(link);
+  new TabLink(link);
 });
